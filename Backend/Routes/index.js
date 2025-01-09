@@ -2,12 +2,17 @@ const express = require('express');
 const multer = require('multer');
 const Router = express.Router();
 const GreenBandController = require('../Controllers');
-const path = require('path');
+const fs = require('fs');
 
+const uploadDir = 'uploads';
+
+if (!fs.existsSync(uploadDir)) {
+    fs.mkdirSync(uploadDir);
+}
 
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {
-        cb(null, path.join(__dirname, 'uploads'));
+        cb(null, 'uploads');
     },
     filename: (req, file, cb) => {
         cb(null, `${Date.now()}-${file.originalname}`);
@@ -32,6 +37,6 @@ const upload = multer({
 Router.get('/', GreenBandController.BreatingMessage)
 Router.post('/AddNewUser', GreenBandController.userAdditionController)
 Router.post('/UploadImage', upload.single('image'), GreenBandController.uplaoduserImages)
-Router.post('/RazorPayment',GreenBandController.makeRazorpayPayment)
+Router.post('/RazorPayment', GreenBandController.makeRazorpayPayment)
 
 module.exports = Router;

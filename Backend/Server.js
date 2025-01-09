@@ -4,6 +4,7 @@ const PORT = 1820
 const CORS = require('cors')
 const bodyParser = require('body-parser');
 const GreenBandRoutes = require('./Routes/index')
+const { MongoClient, ServerApiVersion } = require('mongodb');
 const mongoose = require('mongoose');
 const path = require('path');
 require('dotenv').config();
@@ -17,13 +18,14 @@ app.use(CORS({
     credentials: true
 }))
 
-app.get('/',(req,res)=>{
-  res.send("<h1>Hola Amigos!! Welcome to GreenBand Project</h1>")
+app.get('/', (req, res) => {
+    res.send("<h1>Hola Amigos!! Welcome to GreenBand Project</h1>")
 })
 
 app.use('/api', GreenBandRoutes);
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
+const DatabaseUser=process.env.DATABASEUSER
 const DatabasePassword = process.env.DATABASEUSERPASSWORD
 
 // Local MongoDB Storage
@@ -31,13 +33,10 @@ const DatabasePassword = process.env.DATABASEUSERPASSWORD
 // .then(() => console.log('MongoDB connected')).catch((err) => console.log(err));
 
 // Global MongoDB Storage
-const URI = `mongodb+srv://adityavanshi5451:${DatabasePassword}@greenbandusers.o5ssg.mongodb.net/?retryWrites=true&w=majority&appName=GreenBandUsers`
+const URI = `mongodb+srv://${DatabaseUser}:${DatabasePassword}@greenbandusers.o5ssg.mongodb.net/?retryWrites=true&w=majority&appName=GreenBandUsers`
 
-mongoose.connect(URI).then(() => {
-    console.log("Connected To MongoDBCompass")
-}).catch((err) => {
-    console.log(`Error While Connecting Database : ${err}`)
-})
+mongoose.connect(URI)
+.then(() => console.log('MongoDB connected')).catch((err) => console.log(err));
 
 app.listen(PORT, () => {
     console.log(`App is Running on PORT : ${PORT}`)
