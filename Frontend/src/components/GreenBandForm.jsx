@@ -74,7 +74,7 @@ export default function StudentRegistrationForm() {
     let config = {
       method: "post",
       maxBodyLength: Infinity,
-      url: "http://localhost:1820/api/RazorPayment",
+      url: "https://green-band-back.vercel.app/api/RazorPayment",
       headers: {
         'Content-Type': 'application/json'
       },
@@ -146,7 +146,7 @@ export default function StudentRegistrationForm() {
     e.preventDefault()
     console.log(formDataToSend)
     try {
-      const response = await axios.post('http://localhost:1820/api/AddNewUser', formDataToSend, { withCredentials: true })
+      const response = await axios.post('https://green-band-back.vercel.app/api/AddNewUser', formDataToSend, { withCredentials: true })
       console.log('User registered:', response.data)
 
       if (response.status === 201) {
@@ -161,7 +161,7 @@ export default function StudentRegistrationForm() {
       const headers = {
         'Content-Type': 'multipart/form-data',
       }
-      const ImageUploadResponse = await axios.post('http://localhost:1820/api/UploadImage', formdata, { withCredentials: true }, { Headers: headers })
+      const ImageUploadResponse = await axios.post('https://green-band-back.vercel.app/api/UploadImage', formdata, { withCredentials: true }, { Headers: headers })
 
       console.log('Image Uploaded registered:', ImageUploadResponse.data)
 
