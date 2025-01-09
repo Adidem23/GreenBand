@@ -1,8 +1,8 @@
 import { useMemo } from "react";
 import { motion } from "framer-motion";
-import Note1 from "../assets/images/Note_1.svg";
-import Note2 from "../assets/images/Note_2.svg";
-import Note3 from "../assets/images/Note_3.svg";
+import Note1 from "../../src/assets/images/Note_1.svg";
+import Note2 from "../../src/assets/images/Note_2.svg";
+import Note3 from "../../src/assets/images/Note_3.svg";
 import { useNavigate } from "react-router-dom";
 
 const Hero = () => {

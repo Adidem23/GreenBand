@@ -3,9 +3,9 @@ import { motion, useAnimation, useInView } from "framer-motion";
 import Lenis from "lenis";
 import Lottie from "react-lottie-player";
 
-import Animation1 from "../assets/images/Animation_1.json";
-import Animation2 from "../assets/images/Animation_2.json";
-import Animation3 from "../assets/images/Animation_3.json";
+import Animation1 from "../../src/assets/images/Animation_1.json";
+import Animation2 from "../../src/assets/images/Animation_2.json";
+import Animation3 from "../../src/assets/images/Animation_3.json";
 
 function Learn() {
   useEffect(() => {
