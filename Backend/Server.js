@@ -17,6 +17,10 @@ app.use(CORS({
     credentials: true
 }))
 
+app.get('/',(req,res)=>{
+  res.send("<h1>Hola Amigos!! Welcome to GreenBand Project</h1>")
+})
+
 app.use('/api', GreenBandRoutes);
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 

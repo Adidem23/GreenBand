@@ -6,7 +6,7 @@ const RAZORPAY_API_KEY_ID = process.env.RAZORPAY_KEY_ID
 const RAZORPAY_API_KEY_SECRET = process.env.RAZORPAY_KEY_SECRET
 
 exports.BreatingMessage = (req, res) => {
-  res.send("<h1>Hola Amigos!! Welcome to GreenBand Project</h1>")
+  res.send("<h1>Hola Amigos!! Welcome to GreenBand Project API ROUTE</h1>")
 }
 
 exports.userAdditionController = async (req, res) => {
