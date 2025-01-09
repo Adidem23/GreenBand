@@ -1,13 +1,8 @@
-import React from "react"
-import Navbar from "./components/Navbar"
-import Hero from "./components/Hero"
-
 import { ReactLenis, useLenis } from 'lenis/react'
-import Learn from "./components/Learn"
-import FAQs from "./components/FAQs"
-import Footer from "./components/Footer"
-import Card from "./components/Card"
-import Testimonials from "./components/Testimonials"
+import { Routes , Route } from "react-router-dom"
+import MainRender from './components/MainRender'
+import GreenBandForm from './components/GreenBandForm'
+
 
 function App() {
 
@@ -16,13 +11,10 @@ function App() {
 
   return (
     <ReactLenis root>
-      <Navbar/>
-      <Hero/>
-      <Learn/>
-      <Card/>
-      <FAQs/>
-      <Testimonials/>
-      <Footer/>
+     <Routes>
+      <Route path="/" Component={MainRender} />
+      <Route path="/form" Component={GreenBandForm} />
+     </Routes>
     </ReactLenis>
   )
 }
