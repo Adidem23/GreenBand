@@ -11,7 +11,7 @@ require('dotenv').config();
 app.use(express.json())
 app.use(bodyParser.urlencoded({ extended: true }))
 app.use(CORS({
-    origin: ["http://localhost:5173","https://green-band-front.vercel.app"],
+    origin: "https://green-band-front.vercel.app",
     methods: ['GET', 'POST', 'PUT', 'DELETE'],
     allowedHeaders: ['Content-Type', 'Authorization'],
     credentials: true
