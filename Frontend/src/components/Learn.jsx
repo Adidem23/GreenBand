@@ -4,8 +4,8 @@ import Lenis from "lenis";
 import Lottie from "react-lottie-player";
 
 import Animation1 from "../assets/images/Animation_1.json";
-import Animation2 from "../assets/Images/Animation_2.json";
-import Animation3 from "../assets/Images/Animation_3.json";
+import Animation2 from "../assets/images/Animation_2.json";
+import Animation3 from "../assets/images/Animation_3.json";
 
 function Learn() {
   useEffect(() => {
