@@ -1,10 +1,23 @@
-import React, { useRef, useState, useEffect } from "react";
+import { useRef, useState, useEffect } from "react";
 import {
   motion,
   useScroll,
   useTransform,
   AnimatePresence,
 } from "framer-motion";
+
+import Team1 from '../../src/assets/images/Team_1.jpg'
+import Team2 from '../../src/assets/images/Team_2.jpg'
+import Event1 from '../../src/assets/images/Event_1.jpg'
+import Event2 from '../../src/assets/images/Event_2.jpg'
+import Award1 from '../../src/assets/images/Award_1.jpg'
+import Mention1 from '../../src/assets/images/Mention_1.jpg'
+import Mention2 from '../../src/assets/images/Mention_2.jpg'
+import Sid1 from '../../src/assets/images/Sid_1.jpg'
+import Class3 from '../../src/assets/images/Class_3.jpg'
+import Mentor1 from '../../src/assets/images/Mentor_1.jpg'
+import Class2 from '../../src/assets/images/Class_2.jpg'
+
 
 const Card = () => {
   const container = useRef(null);
@@ -42,8 +55,8 @@ const Card = () => {
       description:
         "Founded in 2009, GreenBand made history as the first rock band from Nanded. The band started with six talented musicians who shared a passion for creating unique music that would resonate with their local audience.",
       images: [
-        "/src/assets/images/Team_1.jpg",
-        "/src/assets/images/Team_2.jpg",
+        Team1,
+        Team2,
       ],
       url: "https://example.com/project1",
       color: "#B1FF0A",
@@ -53,8 +66,8 @@ const Card = () => {
       description:
         "GreenBand quickly established themselves in the local music scene, performing at prestigious music competitions, youth festivals, and college events throughout the region.",
       images: [
-        "/src/assets/images/Event_1.jpg",
-        "/src/assets/images/Event_2.jpg",
+        Event1,
+        Event2,
       ],
       url: "https://example.com/project2",
       color: "#FEC5E5",
@@ -64,9 +77,9 @@ const Card = () => {
       description:
         "Through the years, GreenBand has earned numerous accolades in competitions and garnered significant media attention, with multiple features in local and regional newspapers. Their achievements have helped establish them as one of Nanded's most influential musical acts.",
       images: [
-        "/src/assets/images/Award_1.jpg",
-        "/src/assets/images/Mention_1.jpg",
-        "/src/assets/images/Mention_2.jpg",
+        Award1,
+        Mention1,
+        Mention2,
       ],
       url: "https://example.com/project3",
       color: "#FEFB62",
@@ -76,8 +89,8 @@ const Card = () => {
       description:
         "Under the guidance of band member Sidhant Bidwai, GreenBand expanded its impact through music education. Through GreenBand Music Classes, Sidhant has successfully taught and inspired over 9,000 students, sharing his expertise and passion for music with the next generation.",
       images: [
-        "/src/assets/images/Sid_1.jpg",
-        "/src/assets/images/Class_3.jpg",
+        Sid1,
+        Class3,
       ],
       url: "https://example.com/project3",
       color: "#BAF3FE",
@@ -87,8 +100,8 @@ const Card = () => {
       description:
         "Beyond teaching, Sidhant Bidwai has established himself as a respected mentor in the music community. Through mentoring at youth festivals and hosting regular jamming sessions, he creates opportunities for young musicians to grow and collaborate, strengthening the local music scene.",
       images: [
-        "/src/assets/images/Mentor_1.jpg",
-        "/src/assets/images/Class_2.jpg",
+        Mentor1,
+        Class2,
       ],
       url: "https://example.com/project3",
       color: "#F7B538",

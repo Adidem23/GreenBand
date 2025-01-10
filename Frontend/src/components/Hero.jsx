@@ -1,8 +1,9 @@
-import React, { useMemo } from "react";
+import { useMemo } from "react";
 import { motion } from "framer-motion";
-import Note1 from "../assets/images/Note_1.svg";
-import Note2 from "../assets/images/Note_2.svg";
-import Note3 from "../assets/images/Note_3.svg";
+import Note1 from "../../src/assets/images/Note_1.svg";
+import Note2 from "../../src/assets/images/Note_2.svg";
+import Note3 from "../../src/assets/images/Note_3.svg";
+import { useNavigate } from "react-router-dom";
 
 const Hero = () => {
   const text =
@@ -69,7 +70,7 @@ const Hero = () => {
       transition: {
         delay: 2,
         duration: 0.5,
-        type:"spring",
+        type: "spring",
       },
     },
   };
@@ -104,6 +105,8 @@ const Hero = () => {
       direction: Math.random() > 0.5 ? "reverse" : "normal",
     }));
   }, [noteSVGs, paths]);
+
+  const navigate = useNavigate();
 
   return (
     <div className=" relative overflow-hidden min-h-screen bg-gray-50">
@@ -172,15 +175,14 @@ const Hero = () => {
             {words.map((word, index) => (
               <motion.span
                 key={index}
-                className={`inline-block whitespace-pre ${
-                  word.includes("Talent,")
+                className={`inline-block whitespace-pre ${word.includes("Talent,")
                     ? "text-[#F2545B]"
                     : word.includes("Dreams,")
-                    ? "text-[#813405]"
-                    : word.includes("Success.")
-                    ? "text-[#00FF00]"
-                    : ""
-                }`}
+                      ? "text-[#813405]"
+                      : word.includes("Success.")
+                        ? "text-[#00FF00]"
+                        : ""
+                  }`}
               >
                 {word.split("").map((char, charIndex) => (
                   <motion.span
@@ -205,12 +207,17 @@ const Hero = () => {
           whileTap="tap"
         >
           <motion.span
+            onClick={(e) => {
+              e.preventDefault();
+              navigate('/form');
+            }}
             className="block"
             variants={buttonTextVariants}
             initial="hidden"
             animate="visible"
           >
             Join Classes Now
+
           </motion.span>
         </motion.button>
       </div>
