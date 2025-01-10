@@ -13,9 +13,9 @@ const MainRender = () => {
             <Hero />
             <Learn />
             <FAQs />
-            <Footer />
             <Card />
             <Testimonials />
+            <Footer />
         </>
     )
 }

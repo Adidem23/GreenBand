@@ -33,7 +33,7 @@ export default function StudentRegistrationForm() {
     fathersName: '',
     address: '',
     schoolOrCollege: '',
-    profileImage: null,
+    profileImage: '',
     mobileNumber: '',
     email: '',
     dob: '',
@@ -124,7 +124,7 @@ export default function StudentRegistrationForm() {
       name: "GreenBand",
       description: "GreenBand Admission Fees",
       image: "https://www.google.com/url?sa=i&url=https%3A%2F%2Fin.pinterest.com%2Fpin%2Fblack-panther-black-panther-logo-movies-the-avengers-1080p-wallpaper-hdwallpaper-deskto--724094446348455532%2F&psig=AOvVaw3n_6vMGuQ_lO_7HIwH6dHb&ust=1736349458260000&source=images&cd=vfe&opi=89978449&ved=0CBQQjRxqFwoTCIi7tfjz44oDFQAAAAAdAAAAABAE",
-      handler: function (response){
+      handler: function (response) {
         console.log(response)
       },
       prefill: {
@@ -141,11 +141,11 @@ export default function StudentRegistrationForm() {
   }
 
 
-
   const handleSubmit = async (e) => {
     e.preventDefault()
     console.log(formDataToSend)
     try {
+
       const response = await axios.post('https://green-band-back.vercel.app/api/AddNewUser', formDataToSend, { withCredentials: true })
       console.log('User registered:', response.data)
 
@@ -153,7 +153,6 @@ export default function StudentRegistrationForm() {
         alert('User Registered on GreenBand')
       }
 
-      // Image Uploadation Starts 
       const formdata = new FormData();
       formdata.append('image', formDataToSend.profileImage);
       formdata.append('userid', response.data.User._id)
@@ -169,10 +168,8 @@ export default function StudentRegistrationForm() {
         alert('Image Uploaded on GreenBand')
       }
 
-      //End of the Image Uploadation
-
     } catch (error) {
-      console.error('Error registering USer to GreenBand:', error)
+      console.error('Error registering User to GreenBand:', error)
     }
   }
 

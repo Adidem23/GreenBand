@@ -2,31 +2,9 @@ const express = require('express');
 const multer = require('multer');
 const Router = express.Router();
 const GreenBandController = require('../Controllers');
-const fs = require('fs');
 
-const storage = multer.diskStorage({
-    destination: (req, file, cb) => {
-        cb(null, 'uploads');
-    },
-    filename: (req, file, cb) => {
-        cb(null, `${Date.now()}-${file.originalname}`);
-    },
-});
-
-const fileFilter = (req, file, cb) => {
-    if (file.mimetype.startsWith('image/')) {
-        cb(null, true);
-    } else {
-        cb(new Error('File type not allowed'), false);
-    }
-};
-
-
-const upload = multer({
-    storage: storage,
-    fileFilter: fileFilter,
-});
-
+const storage = multer.memoryStorage();
+const upload = multer({ storage });
 
 Router.get('/', GreenBandController.BreatingMessage)
 Router.post('/AddNewUser', GreenBandController.userAdditionController)

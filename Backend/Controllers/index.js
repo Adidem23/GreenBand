@@ -1,7 +1,9 @@
 const GreenBandUserSchema = require('../Models/index');
 const Razorpay = require("razorpay")
 require('dotenv').config();
-const nodemailer=require('nodemailer');
+const nodemailer = require('nodemailer');
+const { response } = require('express');
+const cloudinary = require('cloudinary').v2;
 
 const RAZORPAY_API_KEY_ID = process.env.RAZORPAY_KEY_ID
 const RAZORPAY_API_KEY_SECRET = process.env.RAZORPAY_KEY_SECRET
@@ -45,17 +47,28 @@ exports.userAdditionController = async (req, res) => {
 }
 
 exports.uplaoduserImages = async (req, res) => {
-  if (!req.file) {
+
+  const fileImage = req.file;
+
+  console.log(fileImage)
+
+  if (!fileImage) {
     return res.status(400).send('No file uploaded.');
   }
 
-  GreenBandUserSchema.findByIdAndUpdate(`${req.body.userid}`, { $set: { profileImage: req.file.filename }, }).then( async (response) => {
+  const fileBuffer = fileImage.buffer;
+  const fileName = fileImage.originalname;
+
+  // Example: Convert the file to Base64
+  const base64File =`data:${fileImage.mimetype};base64,`+fileBuffer.toString('base64');
+
+  GreenBandUserSchema.findByIdAndUpdate(`${req.body.userid}`, { $set: { profileImage: base64File }, }).then(async (response) => {
     console.log("Profile Image is Updated");
 
     const transporter = nodemailer.createTransport({
-      service:'gmail',
+      service: 'gmail',
       auth: {
-        user:process.env.EMAIL_SERVICE_SENDER_ADDRESS,
+        user: process.env.EMAIL_SERVICE_SENDER_ADDRESS,
         pass: process.env.EMAIL_SERVICE_PASSWORD,
       },
     });
@@ -63,10 +76,10 @@ exports.uplaoduserImages = async (req, res) => {
     const info = await transporter.sendMail({
       from: 'GreenBand Private Limited@2025',
       to: "adityavanshi5451@gmail.com",
-      subject: "NEW STUDENT HAS JOINED GREENBAND ACADEMY CLASSES" , 
-      text:`Below Are the details of the student : ${response}`, 
+      subject: "NEW STUDENT HAS JOINED GREENBAND ACADEMY CLASSES",
+      text: `Below Are the details of the student : ${response}`,
     });
-  
+
     console.log("EMAIL HAS BEEN SENT");
 
   })
