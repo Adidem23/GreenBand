@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import Logo from "../assets/images/Logo.png";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -17,9 +18,9 @@ const Navbar = () => {
   };
 
   return (
-    <div className="p-2 bg-gray-50">
+    <div className="p-2 text-white bg-transparent">
       <motion.nav
-        className="bg-[#813405] p-4 flex justify-between text-gr items-center max-w-[50rem] mx-auto rounded-full"
+        className="p-4 flex justify-between text-gr items-center max-w-[50rem] mx-auto"
         initial={{ y: -150 }}
         animate={{ y: 0 }}
         transition={{ duration: 2, ease: "easeOut", type: "spring" }}
@@ -44,19 +45,17 @@ const Navbar = () => {
         </div>
 
         <div className="hidden lg:flex items-center gap-4">
-          <NavLink href="#home">About Us</NavLink>
-          <p className="text-white text-lg">|</p>
-          <NavLink href="#about">FAQs</NavLink>
+          <NavLink href="#home">SERVICES</NavLink>
+          <p className=" text-md">|</p>
+          <NavLink href="#about">FAQ</NavLink>
         </div>
-
-        <div className="text-[#00FF00] font-Pacifico font-extralight text-4xl lg:text-5xl p-1 tracking-wide leading-none -mt-3">
-          GreenBand
+        <div>
+          <p className=" font-Kudryashev text-4xl text-white">Green Band</p>
         </div>
-
         <div className="hidden lg:flex items-center gap-4">
-          <NavLink href="#services">Contact</NavLink>
-          <p className="text-white text-lg">|</p>
-          <NavLink href="#contact">Join Now</NavLink>
+          <NavLink href="#services">ABOUT US</NavLink>
+          <p className="text-md">|</p>
+          <NavLink href="#contact">CONTACT</NavLink>
         </div>
 
         <div className="lg:hidden w-6"></div>
@@ -65,7 +64,7 @@ const Navbar = () => {
       <AnimatePresence>
         {isOpen && (
           <motion.div
-            className="fixed inset-0 bg-[#813405] z-40 flex flex-col items-center justify-center lg:hidden"
+            className="fixed inset-0 bg-black z-40 flex flex-col items-center justify-center lg:hidden"
             initial="closed"
             animate="open"
             exit="closed"
@@ -73,7 +72,7 @@ const Navbar = () => {
           >
             <NavLink href="#home" onClick={toggleMenu}>About Us</NavLink>
             <NavLink href="#about" onClick={toggleMenu}>FAQs</NavLink>
-            <NavLink href="#services" onClick={toggleMenu}>Contact</NavLink>
+            <NavLink href="#services" onClick={toggleMenu}>SERVICES</NavLink>
             <NavLink href="#contact" onClick={toggleMenu}>Join Now</NavLink>
           </motion.div>
         )}
@@ -85,7 +84,7 @@ const Navbar = () => {
 const NavLink = ({ href, children, onClick }) => (
   <a
     href={href}
-    className="text-white text-lg font-semibold relative group transition duration-300 hover:text-[#00FF00] my-2 active:scale-90 lg:group-hover:w-full"
+    className="text-white text-md relative group transition duration-300 hover:text-[#00FF00] my-2 active:scale-90 lg:group-hover:w-full"
     onClick={onClick}
   >
     {children}

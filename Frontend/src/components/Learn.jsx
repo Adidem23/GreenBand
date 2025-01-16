@@ -1,198 +1,120 @@
 import { useRef, useEffect } from "react";
-import { motion, useAnimation, useInView } from "framer-motion";
+import { useAnimation, useInView } from "framer-motion";
 import Lenis from "lenis";
 import Lottie from "react-lottie-player";
+import { CrossPatternCard } from "./CrossPatternCard";
+import { cn } from "../lib/utils";
+import { Phone, Mail, MessageCircle } from "lucide-react";
 
 import Animation1 from "../../src/assets/images/Animation_1.json";
 import Animation2 from "../../src/assets/images/Animation_2.json";
 import Animation3 from "../../src/assets/images/Animation_3.json";
 
+import Acoustic from "../../src/assets/images/Acoustic.png";
+import Drums from "../../src/assets/images/Drums.png";
+import Keyboard from "../../src/assets/images/Keyboard.png";
+import Event1 from "../assets/images/Event_1.jpg"
+
+
+
 function Learn() {
-  useEffect(() => {
-    const lenis = new Lenis({
-      smooth: true,
-      direction: "vertical",
-      gestureDirection: "vertical",
-    });
-
-    const raf = (time) => {
-      lenis.raf(time);
-      requestAnimationFrame(raf);
-    };
-
-    requestAnimationFrame(raf);
-  }, []);
-
-  const blockVariants = {
-    hidden: { scale: 0.8, y: 100, z: 20, transformOrigin: "center" },
-    visible: {
-      scale: 1,
-      y: 0,
-      x: 0,
-      transition: { duration: 0.8, ease: [0.25, 0.1, 0.25, 1] },
-    },
-  };
-
-  const textLines = [
-    "“Discover the Art of Music at GreenBand:",
-    "From Strings to Keys, Flutes to Beats,",
-    "Vocals and Music Production”",
+  const imagesData = [
+    { name: "Guitar", src: Acoustic },
+    { name: "Drums", src: Drums },
+    { name: "Keyboard", src: Keyboard },
+    { name: "Image 4", src: Acoustic },
+    { name: "Image 5", src: Acoustic },
+    { name: "Image 6", src: Acoustic },
+    { name: "Image 7", src: Acoustic },
+    { name: "Image 8", src: Acoustic },
   ];
 
-  const headingRef = useRef(null);
-  const isInView = useInView(headingRef, { once: true, margin: "-50px" });
-  const controls = useAnimation();
-
-  useEffect(() => {
-    if (isInView) {
-      controls.start("visible");
-    }
-  }, [isInView, controls]);
-
-  const container = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.2,
-      },
-    },
-  };
-
-  const lineAnimation = {
-    hidden: { opacity: 0, y: 50 },
-    visible: { opacity: 1, y: 0 },
-    transition: { duration: 1, ease: "easeIn" },
-  };
-
-  const wordAnimation = {
-    hidden: { opacity: 0, y: 50 },
-    visible: { opacity: 1, y: 0 },
-    transition: { duration: 1, ease: "easeIn" },
-  };
-
   return (
-    <div className="flex flex-col items-center px-4 md:px-8 lg:px-16 py-12 bg-gray-50 font-Kudryashev">
-      {/* Headline Section */}
-      <motion.div
-        className="text-center w-full max-w-[90%] mx-auto mb-12 "
-        ref={headingRef}
-        variants={container}
-        initial="hidden"
-        animate={controls}
-      >
-        {textLines.map((line, index) => (
-          <motion.div
+    <div className="bg-black text-white font-Kudryashev">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 py-10 max-w-7xl mx-auto">
+        {imagesData.map((image, index) => (
+          <div
             key={index}
-            className="overflow-hidden mb-4 p-2"
-            variants={lineAnimation}
+            className={cn(
+              "flex flex-col items-center py-6 relative group/feature dark:border-neutral-800 border-l border-b border-neutral-800",
+              (index === 0 || index === 4) &&
+                "lg:border-l dark:border-neutral-800",
+              index < 4 && "lg:border-b dark:border-neutral-800"
+            )}
           >
-            <div className="inline-block">
-              {line.split(" ").map((word, i) => (
-                <motion.span
-                  key={i}
-                  className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl text-gray-800 font-bold inline-block mr-2 "
-                  variants={wordAnimation}
-                >
-                  {word}
-                </motion.span>
-              ))}
+            <div className="opacity-0 group-hover/feature:opacity-100 transition duration-200 absolute inset-0 h-full w-full bg-gradient-to-t from-transparent to-neutral-900 pointer-events-none" />
+
+            <div className="mb-4 relative z-10 px-4 w-full text-center">
+              <img
+                src={image.src}
+                alt={image.name}
+                className="w-3/4 h-auto rounded-lg  shadow-md transition-transform transform group-hover/feature:scale-105"
+              />
             </div>
-          </motion.div>
+
+            <div className="text-lg font-bold mb-2 relative z-10 px-4 text-center">
+              <span className="group-hover/feature:translate-x-2 transition duration-200 inline-block text-neutral-100">
+                {image.name}
+              </span>
+            </div>
+
+            {/* <p className="text-sm text-neutral-400 max-w-xs relative z-10 px-4 text-center">
+              Explore our {image.name} and start your musical journey with
+              expert training.
+            </p> */}
+          </div>
         ))}
-      </motion.div>
+      </div>
 
-      {/* Feature Blocks */}
-      <div className="flex flex-col items-center gap-8 md:gap-12 lg:gap-16 w-full">
-        {/* Block 1 */}
-        <motion.div
-          className="bg-gray-100 w-full max-w-[70rem] h-auto rounded-xl p-8 flex flex-col md:flex-row items-center gap-6 md:gap-8"
-          variants={blockVariants}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, amount: 0.3 }}
-        >
-          <motion.div className="flex-1 text-center md:text-left">
-            <h3 className="text-2xl sm:text-4xl lg:text-6xl font-semibold text-[#19323C] mb-4">
-              String Instruments
-            </h3>
-            <p className="text-[#19323C] font-serif text-xl">
-              Start your journey with expert training in acoustic guitar,
-              electric guitar, and ukulele. Our structured curriculum covers
-              everything from basic scales to advanced techniques, helping you
-              develop your unique playing style.
-            </p>
-          </motion.div>
-          <div className="flex justify-center items-center flex-1">
-            <Lottie
-              loop
-              animationData={Animation1}
-              play
-              style={{ width: "100%", maxWidth: 350, height: "auto" }}
-            />
-          </div>
-        </motion.div>
-
-        {/* Block 2 */}
-        <motion.div
-          className="bg-gray-100 w-full max-w-[70rem] h-auto rounded-xl p-8 flex flex-col md:flex-row items-center gap-6 md:gap-8"
-          variants={blockVariants}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, amount: 0.3 }}
-        >
-          <motion.div className="flex-1 text-center md:text-left">
-            <h3 className="text-2xl sm:text-4xl lg:text-6xl font-semibold text-[#19323C] mb-4">
-              Percussion & Melodic Instruments
-            </h3>
-            <p className="text-[#19323C] font-serif text-xl">
-              Master the fundamentals of drums, keyboard, and flute. Learn
-              rhythmic patterns on drums, explore classical to modern pieces on
-              keyboard, and discover the art of melodic expression through
-              flute.
-            </p>
-          </motion.div>
-          <div className="flex justify-center items-center flex-1">
-            <Lottie
-              loop
-              animationData={Animation2}
-              play
-              style={{ width: "100%", maxWidth: 350, height: "auto" }}
-            />
-          </div>
-        </motion.div>
-
-        {/* Block 3 */}
-        <motion.div
-          className="bg-gray-100 w-full max-w-[70rem] h-auto rounded-xl p-8 flex flex-col md:flex-row items-center gap-6 md:gap-8"
-          variants={blockVariants}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, amount: 0.3 }}
-        >
-          <motion.div className="flex-1 text-center md:text-left">
-            <h3 className="text-2xl sm:text-4xl lg:text-6xl font-semibold text-[#19323C] mb-4">
-              Advanced Music Studies
-            </h3>
-            <p className="text-[#19323C] font-serif text-xl">
-              Elevate your musical skills with vocal training focusing on proper
-              techniques and breathing exercises. Learn modern music production
-              using professional software, including mixing and arrangement
-              techniques.
-            </p>
-          </motion.div>
-          <div className="flex justify-center items-center flex-1">
-            <Lottie
-              loop
-              animationData={Animation3}
-              play
-              style={{ width: "100%", maxWidth: 350, height: "auto" }}
-            />
-          </div>
-        </motion.div>
+      <div className=" border"  >
+        <ContactSection />
       </div>
     </div>
   );
 }
 
 export default Learn;
+
+const ContactSection = () => (
+  <div className=" py-10 px-5 text-center" style={{ backgroundImage: `url(${Event1})`, backgroundSize: 'cover', backgroundPosition: 'center' }}>
+    <h2 className="text-3xl font-semibold mb-6 text-blue-400">
+      For Concerts or Music Events
+    </h2>
+    <p className="text-lg mb-6">Reach out to us now!</p>
+    <div className="flex flex-col md:flex-row justify-center items-center gap-6">
+      <ContactButton
+        href="https://wa.me/your-whatsapp-number"
+        icon={<MessageCircle size={24} />}
+        label="WhatsApp"
+        className="text-green-400"
+      />
+      <ContactButton
+        href="mailto:your-email@example.com"
+        icon={<Mail size={24} />}
+        label="Email"
+        className="text-blue-400"
+      />
+      <ContactButton
+        href="tel:+1234567890"
+        icon={<Phone size={24} />}
+        label="Phone"
+        className="text-yellow-400"
+      />
+    </div>
+  </div>
+);
+
+const ContactButton = ({ href, icon, label, className }) => (
+  <a
+    href={href}
+    target="_blank"
+    rel="noopener noreferrer"
+    className={cn(
+      "flex items-center gap-3 px-6 py-3 text-lg font-medium border border-current rounded-lg transition-all transform hover:scale-105 hover:shadow-md",
+      className
+    )}
+  >
+    {icon}
+    <span>{label}</span>
+  </a>
+);
