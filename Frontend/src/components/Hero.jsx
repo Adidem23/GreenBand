@@ -1,85 +1,21 @@
-import { useMemo } from "react";
+import React, { useMemo } from "react";
 import { motion } from "framer-motion";
-import Note1 from "../../src/assets/images/Note_1.svg";
-import Note2 from "../../src/assets/images/Note_2.svg";
-import Note3 from "../../src/assets/images/Note_3.svg";
 import { useNavigate } from "react-router-dom";
+import ShootingStars from "./ShootingStars";
+import NavBar from "./Navbar";
+import Note1 from "../../src/assets/images/Note_1.svg";
+import Note2 from "../../src/assets/images/Note_2.png";
+import Note3 from "../../src/assets/images/Note_3.png";
+import Note4 from "../../src/assets/images/Note_4.png";
+import HeroImg from "../../src/assets/images/Hero.png";
+import { MoveRight, Guitar, Instagram, Youtube, Facebook } from "lucide-react";
 
 const Hero = () => {
-  const text =
-    "“The Symphony of Excellence: Composing Talent, Orchestrating Dreams, Conducting Success.”";
-  const words = useMemo(() => text.split(/(\s+)/), [text]);
-
-  const container = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: { staggerChildren: 0.016, delayChildren: 0.2 },
-    },
-  };
-
-  const child = {
-    hidden: { y: 20, opacity: 0 },
-    visible: {
-      y: 0,
-      opacity: 1,
-      transition: {
-        type: "spring",
-        damping: 12,
-        stiffness: 200,
-        mass: 0.2,
-      },
-    },
-  };
-
-  const waveVariants = {
-    animate: {
-      x: [0, -1440],
-      transition: {
-        x: {
-          repeat: Infinity,
-          repeatType: "loop",
-          duration: 20,
-          ease: "easeInOut",
-        },
-      },
-    },
-  };
-
-  const buttonVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      scale: 1,
-      transition: {
-        delay: 2,
-        duration: 0.5,
-        type: "spring",
-        stiffness: 100,
-      },
-    },
-    hover: { scale: 1.1 },
-    tap: { scale: 0.95 },
-  };
-
-  const buttonTextVariants = {
-    hidden: { y: 20, opacity: 0 },
-    visible: {
-      y: 0,
-      opacity: 1,
-      transition: {
-        delay: 2,
-        duration: 0.5,
-        type: "spring",
-      },
-    },
-  };
-
-  const noteSVGs = [Note1, Note2, Note3];
+  const noteSVGs = [Note1, Note2, Note3, Note4];
 
   const paths = useMemo(() => {
     const generatedPaths = [];
-    for (let i = 0; i < 10; i++) {
+    for (let i = 0; i < 20; i++) {
       const startX = Math.random() * 1440;
       const startY = Math.random() * 800;
       const controlX1 = Math.random() * 1440;
@@ -109,33 +45,47 @@ const Hero = () => {
   const navigate = useNavigate();
 
   return (
-    <div className=" relative overflow-hidden min-h-screen bg-gray-50">
-      <div className="absolute top-0 left-0 w-full h-full pointer-events-none">
-        {[...Array(3)].map((_, index) => (
-          <motion.div
-            key={`wave-${index}`}
-            className="absolute top-0 left-0 w-[200%] h-[15rem] sm:h-[30rem]"
-            variants={waveVariants}
-            animate="animate"
-            style={{
-              top: `${index * 20}%`,
-            }}
-          >
-            <svg
-              className="w-full h-full"
-              viewBox="0 0 2880 320"
-              preserveAspectRatio="none"
-            >
-              <path
-                fill="none"
-                stroke={`rgba(129,52,5,${0.3 - index * 0.1})`}
-                strokeWidth="1"
-                d="M0,160 C640,300,840,0,1480,160 C2120,300,2240,0,2880,160"
-              />
-            </svg>
-          </motion.div>
-        ))}
+    <div className="relative overflow-hidden min-h-screen bg-black">
+      <div className="absolute inset-0">
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(255,255,255,0.15)_0%,rgba(0,0,0,0)_80%)]" />
+        <div className="stars absolute inset-0" />
+      </div>
 
+      <ShootingStars
+        starColor="#9E00FF"
+        trailColor="#2EB9DF"
+        minSpeed={5}
+        maxSpeed={15}
+        minDelay={1000}
+        maxDelay={3000}
+        numStars={10}
+      />
+      <ShootingStars
+        starColor="#9E00FF"
+        trailColor="#2EB9DF"
+        minSpeed={5}
+        maxSpeed={15}
+        minDelay={1000}
+        maxDelay={3000}
+      />
+      <ShootingStars
+        starColor="#9E00FF"
+        trailColor="#2EB9DF"
+        minSpeed={5}
+        maxSpeed={15}
+        minDelay={1000}
+        maxDelay={3000}
+      />
+      <ShootingStars
+        starColor="#9E00FF"
+        trailColor="#2EB9DF"
+        minSpeed={5}
+        maxSpeed={15}
+        minDelay={1000}
+        maxDelay={3000}
+      />
+
+      <div className="absolute top-0 left-0 w-full h-full pointer-events-none">
         {notesData.map((note, index) => (
           <motion.div
             key={`note-${index}`}
@@ -163,64 +113,116 @@ const Hero = () => {
           </motion.div>
         ))}
       </div>
+      <NavBar />
+      <div className="w-full text-white py-20 lg:py-40 relative z-10">
+        <div className="container mx-auto">
+          <div className="grid grid-cols-1 gap-8 items-center lg:grid-cols-2">
+            <div className="flex gap-4 flex-col">
+              <div className="flex gap-4 flex-col">
+                <h1 className="text-5xl md:text-7xl max-w-lg tracking-tighter text-left font-Kudryashev">
+                  The Door To Your{" "}
+                  <span className="bg-gradient-to-r from-green-400 via-blue-500 to-purple-600 bg-clip-text text-transparent">
+                    Music Dreams
+                  </span>
+                </h1>
+                <p className="text-xl leading-relaxed tracking-tight text-muted-foreground max-w-md text-left font-serif font-thin">
+                  “Step into a world where your musical aspirations come alive.
+                  Whether you’re mastering an instrument through our expert-led
+                  classes or discovering the perfect gear at our store, we make
+                  every note of your journey seamless and inspiring.”
+                </p>
+              </div>
+              <div className="flex flex-row gap-4">
+                <button className="px-6 py-3 text-white font-semibold font-serif text-sm flex items-center gap-2 rounded-lg bg-gradient-to-r from-[#9E00FF] to-[#2EB9DF] hover:from-[#2EB9DF] hover:to-[#9E00FF] transition-transform transform hover:scale-105 shadow-lg">
+                  Join Classes Now <MoveRight className="w-4 h-4" />
+                </button>
+                <button className="px-6 py-3 text-white font-semibold font-serif text-sm flex items-center gap-2 rounded-lg bg-gradient-to-r from-purple-700 via-pink-500 to-purple-600 hover:from-purple-600 hover:via-pink-500 hover:to-purple-700 transition-transform transform hover:scale-105 shadow-lg">
+                  Visit Store <Guitar className="w-4 h-4" />
+                </button>
+              </div>
 
-      <div className="relative z-30 flex flex-col items-center justify-center min-h-screen px-4">
-        <motion.div
-          className="max-w-4xl mx-auto text-center font-semibold"
-          variants={container}
-          initial="hidden"
-          animate="visible"
-        >
-          <p className="font-Kudryashev text-4xl sm:text-5xl md:text-6xl lg:text-7xl text-[#19323C] leading-tight">
-            {words.map((word, index) => (
-              <motion.span
-                key={index}
-                className={`inline-block whitespace-pre ${word.includes("Talent,")
-                    ? "text-[#F2545B]"
-                    : word.includes("Dreams,")
-                      ? "text-[#813405]"
-                      : word.includes("Success.")
-                        ? "text-[#00FF00]"
-                        : ""
-                  }`}
-              >
-                {word.split("").map((char, charIndex) => (
-                  <motion.span
-                    key={charIndex}
-                    variants={child}
-                    className="inline-block relative overflow-hidden pb-1.5"
+              <div className="flex flex-row gap-2 items-start mt-4">
+                <span className="text-white font-serif text-lg">
+                  Follow Us:
+                </span>
+                <div className="flex items-center gap-4">
+                  {/* Instagram */}
+                  <a
+                    href="https://instagram.com"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-pink-500 hover:text-pink-600 transition-transform transform hover:scale-110"
                   >
-                    {char}
-                  </motion.span>
-                ))}
-              </motion.span>
-            ))}
-          </p>
-        </motion.div>
-
-        <motion.button
-          className="mt-8 px-4 py-2 font-serif rounded-full sm:px-6 sm:py-3 lg:px-8 lg:py-4 bg-[#F2545B] text-white font-semibold text-sm sm:text-base lg:text-lg shadow-md hover:shadow-lg focus:outline-none transition-all"
-          variants={buttonVariants}
-          initial="hidden"
-          animate="visible"
-          whileHover="hover"
-          whileTap="tap"
-        >
-          <motion.span
-            onClick={(e) => {
-              e.preventDefault();
-              navigate('/form');
-            }}
-            className="block"
-            variants={buttonTextVariants}
-            initial="hidden"
-            animate="visible"
-          >
-            Join Classes Now
-
-          </motion.span>
-        </motion.button>
+                    <Instagram className="w-7 h-7" />
+                  </a>
+                  {/* YouTube */}
+                  <a
+                    href="https://youtube.com"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-red-600 hover:text-red-700 transition-transform transform hover:scale-110"
+                  >
+                    <Youtube className="w-7 h-7" />
+                  </a>
+                  {/* Facebook */}
+                  <a
+                    href="https://facebook.com"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-blue-600 hover:text-blue-700 transition-transform transform hover:scale-110"
+                  >
+                    <Facebook className="w-7 h-7" />
+                  </a>
+                </div>
+              </div>
+            </div>
+            <div className="bg-muted aspect-square">
+              <img
+                src={HeroImg}
+                alt="Hero"
+                className="rounded-2xl w-full object-cover md:scale-110 md:translate-x-1/4 lg:scale-120 lg:translate-x-1/4"
+              />
+            </div>
+          </div>
+        </div>
       </div>
+
+      <style jsx>{`
+        .stars {
+          background-image: radial-gradient(
+              2px 2px at 20px 30px,
+              #eee,
+              rgba(0, 0, 0, 0)
+            ),
+            radial-gradient(2px 2px at 40px 70px, #fff, rgba(0, 0, 0, 0)),
+            radial-gradient(2px 2px at 50px 160px, #ddd, rgba(0, 0, 0, 0)),
+            radial-gradient(2px 2px at 90px 40px, #fff, rgba(0, 0, 0, 0)),
+            radial-gradient(2px 2px at 130px 80px, #fff, rgba(0, 0, 0, 0)),
+            radial-gradient(2px 2px at 160px 120px, #ddd, rgba(0, 0, 0, 0));
+          background-repeat: repeat;
+          background-size: 200px 200px;
+          animation: twinkle 5s ease-in-out infinite;
+          opacity: 0.5;
+        }
+
+        @keyframes twinkle {
+          0% {
+            opacity: 0.5;
+          }
+          25% {
+            opacity: 0.7;
+          }
+          50% {
+            opacity: 1;
+          }
+          75% {
+            opacity: 0.7;
+          }
+          100% {
+            opacity: 0.5;
+          }
+        }
+      `}</style>
     </div>
   );
 };

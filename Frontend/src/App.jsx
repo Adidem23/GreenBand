@@ -10,7 +10,13 @@ function App() {
   })
 
   return (
-    <ReactLenis root>
+    <ReactLenis root options={
+    {
+      lerp: 0.05,
+      // infinite: true,
+      syncTouch: true,
+    }
+    }>
      <Routes>
       <Route path="/" Component={MainRender} />
       <Route path="/form" Component={GreenBandForm} />
