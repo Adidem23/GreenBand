@@ -1,12 +1,10 @@
-const express = require('express')
-const app = express()
-const PORT = 1820
-const CORS = require('cors')
+const express = require('express');
+const app = express();
+const PORT = 1820;
+const CORS = require('cors');
 const bodyParser = require('body-parser');
-const GreenBandRoutes = require('./Routes/index')
-const { MongoClient, ServerApiVersion } = require('mongodb');
+const GreenBandRoutes = require('./Routes/index');
 const mongoose = require('mongoose');
-const path = require('path');
 require('dotenv').config();
 
 app.use(express.json())
@@ -23,20 +21,35 @@ app.get('/', (req, res) => {
 })
 
 app.use('/api', GreenBandRoutes);
-app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
 const DatabaseUser=process.env.DATABASEUSER
 const DatabasePassword = process.env.DATABASEUSERPASSWORD
 
-// Local MongoDB Storage
-// mongoose.connect("mongodb://0.0.0.0:27017/GreenBandUsers")
-// .then(() => console.log('MongoDB connected')).catch((err) => console.log(err));
-
 // Global MongoDB Storage
 const URI = `mongodb+srv://${DatabaseUser}:${DatabasePassword}@greenbandusers.o5ssg.mongodb.net/?retryWrites=true&w=majority&appName=GreenBandUsers`
 
-mongoose.connect(URI)
-.then(() => console.log('MongoDB connected')).catch((err) => console.log(err));
+const MAX_RETRIES = 5; 
+const RETRY_DELAY = 5000;
+
+let attempt = 0; 
+
+const connectWithRetry = async () => {
+  try {
+    await mongoose.connect(URI);
+    console.log('MongoDB-Cloud connected');
+  } catch (error) {
+    console.error(`MongoDB connection failed: ${error.message}`);
+    attempt++;
+
+    if (attempt <= MAX_RETRIES) {
+      console.log(`Retrying connection (${attempt}/${MAX_RETRIES})...`);
+      setTimeout(connectWithRetry, RETRY_DELAY); 
+    } else {
+      console.error('Max retries reached. Could not connect to MongoDB.');
+    }
+  }
+};
+connectWithRetry();
 
 app.listen(PORT, () => {
     console.log(`App is Running on PORT : ${PORT}`)

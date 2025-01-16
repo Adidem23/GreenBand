@@ -7,7 +7,7 @@ const ApplicationSchema = new mongoose.Schema({
     address: { type: String, required: true },
     schoolOrCollege: { type: String, required: true },
     profileImage: {
-        type: String,
+        type: Object,
         required: false
     },
     mobileNumber: {

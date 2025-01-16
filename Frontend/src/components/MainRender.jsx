@@ -13,8 +13,9 @@ const MainRender = () => {
             <Learn />
             <WhyJoinUs />
             <FAQs />
+            <Card />
             <Testimonials />
-            <Footer/>
+            <Footer />
         </>
     )
 }
