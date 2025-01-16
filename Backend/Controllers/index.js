@@ -50,17 +50,17 @@ exports.uplaoduserImages = async (req, res) => {
 
   const fileImage = req.file;
 
-  console.log(fileImage)
+  console.log(fileImage);
+  console.log(req.body.userid);
 
   if (!fileImage) {
     return res.status(400).send('No file uploaded.');
   }
 
   const fileBuffer = fileImage.buffer;
-  const fileName = fileImage.originalname;
 
   // Example: Convert the file to Base64
-  const base64File =`data:${fileImage.mimetype};base64,`+fileBuffer.toString('base64');
+  const base64File =fileBuffer.toString('base64');
 
   GreenBandUserSchema.findByIdAndUpdate(`${req.body.userid}`, { $set: { profileImage: base64File }, }).then(async (response) => {
     console.log("Profile Image is Updated");
