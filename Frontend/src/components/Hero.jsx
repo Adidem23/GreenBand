@@ -44,6 +44,8 @@ const Hero = () => {
 
   const navigate = useNavigate();
 
+
+
   return (
     <div className="relative overflow-hidden min-h-screen bg-black">
       <div className="absolute inset-0">
@@ -133,7 +135,7 @@ const Hero = () => {
                 </p>
               </div>
               <div className="flex flex-row gap-4">
-                <button className="px-6 py-3 text-white font-semibold font-serif text-sm flex items-center gap-2 rounded-lg bg-gradient-to-r from-[#9E00FF] to-[#2EB9DF] hover:from-[#2EB9DF] hover:to-[#9E00FF] transition-transform transform hover:scale-105 shadow-lg">
+                <button onClick={(e)=>{e.preventDefault(); navigate("/form")}} className="px-6 py-3 text-white font-semibold font-serif text-sm flex items-center gap-2 rounded-lg bg-gradient-to-r from-[#9E00FF] to-[#2EB9DF] hover:from-[#2EB9DF] hover:to-[#9E00FF] transition-transform transform hover:scale-105 shadow-lg">
                   Join Classes Now <MoveRight className="w-4 h-4" />
                 </button>
                 <button className="px-6 py-3 text-white font-semibold font-serif text-sm flex items-center gap-2 rounded-lg bg-gradient-to-r from-purple-700 via-pink-500 to-purple-600 hover:from-purple-600 hover:via-pink-500 hover:to-purple-700 transition-transform transform hover:scale-105 shadow-lg">

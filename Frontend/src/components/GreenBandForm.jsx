@@ -64,82 +64,7 @@ export default function StudentRegistrationForm() {
     }
   }
 
-  const initiateRazorpayCheckout = (amount) => {
-
-    let data = JSON.stringify({
-      amount: amount * 100,
-      currency: "INR"
-    })
-
-    let config = {
-      method: "post",
-      maxBodyLength: Infinity,
-      url: "https://green-band-back.vercel.app/api/RazorPayment",
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      data: data
-    }
-
-    axios.request(config)
-      .then((response) => {
-        console.log(JSON.stringify(response.data))
-        handleRazorpayScreen(response.data.amount)
-      })
-      .catch((error) => {
-        console.log("error at", error)
-      })
-  }
-
-  const loadScript = (src) => {
-    return new Promise((resolve) => {
-      const script = document.createElement("script");
-
-      script.src = src;
-
-      script.onload = () => {
-        resolve(true)
-      }
-      script.onerror = () => {
-        resolve(false)
-      }
-
-      document.body.appendChild(script);
-    })
-  }
-
-
-  const handleRazorpayScreen = async (amount) => {
-    const res = await loadScript("https:/checkout.razorpay.com/v1/checkout.js")
-
-    if (!res) {
-      alert("Some error at razorpay screen loading")
-      return;
-    }
-
-    const options = {
-      key: 'rzp_test_b6CvqawNL5dJfe',
-      amount: amount,
-      currency: 'INR',
-      name: "GreenBand",
-      description: "GreenBand Admission Fees",
-      image: "https://www.google.com/url?sa=i&url=https%3A%2F%2Fin.pinterest.com%2Fpin%2Fblack-panther-black-panther-logo-movies-the-avengers-1080p-wallpaper-hdwallpaper-deskto--724094446348455532%2F&psig=AOvVaw3n_6vMGuQ_lO_7HIwH6dHb&ust=1736349458260000&source=images&cd=vfe&opi=89978449&ved=0CBQQjRxqFwoTCIi7tfjz44oDFQAAAAAdAAAAABAE",
-      handler: function (response) {
-        console.log(response)
-      },
-      prefill: {
-        name: "GreenBand",
-        email: "adityasuryawanshi5451@gmail.com"
-      },
-      theme: {
-        color: "#F4C430"
-      }
-    }
-
-    const paymentObject = new window.Razorpay(options)
-    paymentObject.open()
-  }
-
+  
 
   const handleSubmit = async (e) => {
     e.preventDefault()
@@ -453,7 +378,6 @@ export default function StudentRegistrationForm() {
                 <>
                   <CustomButton onClick={(e) => {
                     e.preventDefault();
-                    initiateRazorpayCheckout(1400)
                   }}>
                     Pay Fees
                   </CustomButton>

@@ -3,18 +3,18 @@ const mongoose = require('mongoose');
 const ApplicationSchema = new mongoose.Schema({
     firstName: { type: String, required: true },
     lastName: { type: String, required: true },
-    fathersName: { type: String, required: true , unique:true},
+    fathersName: { type: String, required: true, unique: true },
     address: { type: String, required: true },
     schoolOrCollege: { type: String, required: true },
     profileImage: {
-        type: Object,
+        type: String,
         required: false
     },
     mobileNumber: {
-        type: String, required: true , unique:true
+        type: String, required: true, unique: true
     },
-    email: { type: String, required: true , unique:true},
-    dob: { type: Date, required: true},
+    email: { type: String, required: true, unique: true },
+    dob: { type: Date, required: true },
     educationalQualification: { type: String, required: true },
     district: { type: String, required: true },
     state: { type: String, required: true },
