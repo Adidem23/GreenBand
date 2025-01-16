@@ -2,8 +2,6 @@ const GreenBandUserSchema = require('../Models/index');
 const Razorpay = require("razorpay")
 require('dotenv').config();
 const nodemailer = require('nodemailer');
-const { response } = require('express');
-const cloudinary = require('cloudinary').v2;
 
 const RAZORPAY_API_KEY_ID = process.env.RAZORPAY_KEY_ID
 const RAZORPAY_API_KEY_SECRET = process.env.RAZORPAY_KEY_SECRET
@@ -51,18 +49,13 @@ exports.uplaoduserImages = async (req, res) => {
   const fileImage = req.file;
 
   console.log(fileImage);
-  console.log(req.body.userid);
 
   if (!fileImage) {
     return res.status(400).send('No file uploaded.');
   }
 
-  const fileBuffer = fileImage.buffer;
 
-  // Example: Convert the file to Base64
-  const base64File =fileBuffer.toString('base64');
-
-  GreenBandUserSchema.findByIdAndUpdate(`${req.body.userid}`, { $set: { profileImage: base64File }, }).then(async (response) => {
+  GreenBandUserSchema.findByIdAndUpdate(`${req.body.userid}`, { $set: { profileImage: fileImage.buffer}, }).then(async (response) => {
     console.log("Profile Image is Updated");
 
     const transporter = nodemailer.createTransport({
@@ -82,7 +75,7 @@ exports.uplaoduserImages = async (req, res) => {
 
     console.log("EMAIL HAS BEEN SENT");
 
-  })
+  }).catch((err)=>console.log(err))
 
   res.status(200).json({ message: 'Image uploaded successfully!', filename: req.file.filename });
 }
